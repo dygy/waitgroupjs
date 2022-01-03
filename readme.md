@@ -1,12 +1,14 @@
 # Advanced wait group for JS/TS (with types)
 
 ## Installation
-npm i advanced_waitgroup_js
+```shell
+    npm i advanced_waitgroup_js
+```
 
 ## Usage
 ### done
 ```typescript
-import WaitGroup from 'advanced_waitgroup_js';
+import WaitGroup from "advanced_waitgroup_js/src/index";
 
 const wg = new WaitGroup();
 
@@ -26,7 +28,7 @@ await p;
 ````
 ### ultimatum
 ```typescript
-import WaitGroup from 'advanced_waitgroup_js';
+import WaitGroup from "advanced_waitgroup_js/src/index";
 
 const wg = new WaitGroup();
 
