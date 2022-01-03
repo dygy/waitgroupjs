@@ -1,6 +1,6 @@
-#Advanced wait group for JS/TS (with types)
+# Advanced wait group for JS/TS (with types)
 
-##Installation
+## Installation
 npm i advanced_waitgroup_js
 
 ## Usage
