@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "typescript": "4.5.4",
     "jest": "27.4.5"
   }
