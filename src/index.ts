@@ -1,17 +1,16 @@
 type Counter = {
-    isDone?: boolean;
     promise: Promise<unknown>,
-    resolve: () => unknown,
-    reject: (err) => unknown,
+    resolve: (value?: unknown) => void,
+    reject: (err: string) => void,
 };
 
-export default class WaitGroup {
+export default class Index {
     private waiting: boolean;
-    readonly counters: Counter[];
+    readonly _counters: Counter[];
 
     constructor() {
         this.waiting = false;
-        this.counters = [];
+        this._counters = [];
     }
 
     add(counter?: number) {
@@ -24,18 +23,18 @@ export default class WaitGroup {
         }
 
         for (let i = 0; i < counter; i++) {
-            let resolve,
-                reject;
+            let resolve : (value: unknown) => void,
+                reject: (err: string) => void;
+
             const promise = new Promise((res, rej) => {
                 resolve = res;
                 reject = rej;
-            });
 
-            this.counters.push({
-                promise,
-                resolve,
-                reject,
-                isDone: false,
+                this._counters.push({
+                    promise,
+                    resolve,
+                    reject,
+                });
             });
         }
     }
@@ -45,7 +44,7 @@ export default class WaitGroup {
             throw new Error('Can\'t call `done` before `wait`');
         }
 
-        const counter = this.counters.splice(0, 1)[0];
+        const counter = this._counters.splice(0, 1)[0];
 
         if (!counter) {
             throw new Error('Can\'t call `done` when there are no counters');
@@ -64,15 +63,15 @@ export default class WaitGroup {
                 throw new Error('There\'s already an `wait` call waiting resolution');
             }
 
-            if (this.counters.length === 0) {
+            if (this._counters.length === 0) {
                 throw new Error('Can\'t call `wait` when there are no counters');
             }
 
-            let timeoutId;
+            let timeoutId: NodeJS.Timeout;
 
             if (timeout) {
                 timeoutId = setTimeout(() => {
-                    this.counters.forEach((counter)=> {
+                    this._counters.forEach((counter)=> {
                         counter.reject('canceled');
                     })
                     reject(new Error('Timeout reached'));
@@ -80,7 +79,7 @@ export default class WaitGroup {
             }
 
             this.waiting = true;
-            Promise.all(this.counters.map((counter) => counter.promise))
+            Promise.all(this._counters.map((counter) => counter.promise))
                 .then(() => {
                     return resolve();
                 }).catch((err) => {
@@ -93,8 +92,8 @@ export default class WaitGroup {
     }
 
     ultimatum() {
-        const length = this.counters.length;
-        for (let i = 0; i < length; i++) {
+        const length = this._counters.length;
+        for (let i = 0; i < length && this.waiting; i++) {
             this.done();
         }
     }

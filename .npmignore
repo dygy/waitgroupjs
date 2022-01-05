@@ -1,4 +1,7 @@
-.idea/
-.dist/
-.test/
-.gitignore/
+.gitignore
+.idea
+src
+test
+tsconfig.json
+tslint.json
+.prettierrc

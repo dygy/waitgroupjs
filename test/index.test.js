@@ -1,4 +1,4 @@
-import WaitGroup from "../src/index";
+const WaitGroup = require('../index');
 
 const mock = {
     testFunc: () => {}
@@ -40,7 +40,7 @@ describe('wg', () => {
         wg.ultimatum();
 
         setTimeout(() => {
-            expect(wg.counters).toHaveLength(0);
+            expect(wg._counters).toHaveLength(0);
             expect(isDone).toBeTruthy();
             done()
         }, 1000)

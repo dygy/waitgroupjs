@@ -8,9 +8,9 @@
 ## Usage
 ### done
 ```typescript
-import WaitGroup from "advanced_waitgroup_js/src/index";
+import Index from "advanced_waitgroup_js";
 
-const wg = new WaitGroup();
+const wg = new Index();
 
 wg.add(2);
 
@@ -28,9 +28,9 @@ await p;
 ````
 ### ultimatum
 ```typescript
-import WaitGroup from "advanced_waitgroup_js/src/index";
+import Index from "advanced_waitgroup_js";
 
-const wg = new WaitGroup();
+const wg = new Index();
 
 wg.add(2);
 
