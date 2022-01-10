@@ -7,10 +7,12 @@
 
 ## Usage
 ### done
-```typescript
-import Index from "advanced_waitgroup_js";
 
-const wg = new Index();
+```typescript
+import WaitGroup from "advanced_waitgroup_js";
+
+
+const wg = new WaitGroup();
 
 wg.add(2);
 
@@ -28,9 +30,9 @@ await p;
 ````
 ### ultimatum
 ```typescript
-import Index from "advanced_waitgroup_js";
+import WaitGroup from "advanced_waitgroup_js";
 
-const wg = new Index();
+const wg = new WaitGroup();
 
 wg.add(2);
 

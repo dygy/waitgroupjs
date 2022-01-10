@@ -4,7 +4,7 @@ type Counter = {
     reject: (err: string) => void,
 };
 
-export default class Index {
+export default class WaitGroup {
     private waiting: boolean;
     readonly _counters: Counter[];
 
